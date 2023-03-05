@@ -18,6 +18,7 @@
 #include <sstream>
 #include <algorithm>
 
+
 template <size_t Base> class BigInt;
 template <size_t Base> std::ostream& operator<<(std::ostream&, const BigInt<Base>&);
 template <size_t Base> std::istream& operator>>(std::istream&, BigInt<Base>&);
@@ -28,8 +29,31 @@ template<size_t Base> BigInt<Base> operator+(const BigInt<Base>&, const BigInt<B
 template<size_t Base> BigInt<Base> operator/(const BigInt<Base>&, const BigInt<Base>&);
 template<size_t Base> BigInt<Base> pow(const BigInt<Base>&, const BigInt<Base>&);
 
+class Number {
+ public:
+  virtual Number* add(const Number*) const = 0;
+  // virtual Number* subtract(const Number*) const = 0;
+  // virtual Number* multiply(const Number*) const = 0;
+  // virtual Number* divide(const Number*) const = 0;
+  // virtual Number* module(const Number*) const = 0;
+  // virtual Number* pow(const Number*) const = 0;
+
+  // virtual operator BigInt<2>() const = 0;
+  // virtual operator BigInt<8>() const = 0;
+  // virtual operator BigInt<10>() const = 0;
+  // virtual operator BigInt<16>() const = 0;
+
+  // virtual std::ostream& write(std::ostream&) const = 0;
+  // virtual std::istream& read(std::istream&) = 0;
+  // friend std::ostream& operator<<(std::ostream&, const Number&);
+  // friend std::istream& operator>>(std::istream&, Number&);
+
+  // static Number* create(size_t base, const std::string& s);
+
+};
+
 template<size_t Base> 
-class BigInt {
+class BigInt : Number {
  public: 
 // Constructores
   BigInt (long n = 0);
@@ -69,7 +93,8 @@ class BigInt {
   BigInt<Base> operator--(int);  // Post-decremento
 
 // Operadores aritmeticos
- friend BigInt<Base> operator+ <>(const BigInt<Base>&, const BigInt<Base>&);
+  Number* add(const Number* n) const {BigInt<Base> ret = n; return *this + ret;}
+  friend BigInt<Base> operator+ <>(const BigInt<Base>&, const BigInt<Base>&);
   BigInt<Base> operator-(const BigInt<Base>&) const;
   BigInt<Base> operator-() const;
   BigInt<Base> operator*(const BigInt<Base>&) const;

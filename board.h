@@ -44,16 +44,18 @@ template<size_t Base>
 Board<Base>::Board(std::ifstream& file) {
   std::string line;
   while (getline(file, line)) {
-    int pos_equal = line.rfind("=");
-    std::string etiqueta = line.substr(0, pos_equal-1);
-    std::string valor = line.substr(pos_equal + 2);
-    bool number = etiqueta.at(0) == 'E' ? false : true;
-    if (number) {  // Si es simplemente un numero, no una expresion RPN
-      pares_.push_back(std::make_pair(etiqueta, BigInt<Base>(valor)));
-    } else {  // Si es una expresion RPN
+    int pos_inte = line.find("?");
+    if (pos_inte != -1) {
+      std::string etiqueta = line.substr(0, pos_inte - 1);
+      std::string valor = line.substr(pos_inte + 2);
       rpn<Base> calculadora(*this);
       BigInt<Base> resultado = calculadora.evaluate(valor);
       pares_.push_back(std::make_pair(etiqueta, resultado));
+    } else {
+      int pos_equal = line.find("=");
+      std::string etiqueta = line.substr(0, pos_equal-1);
+      std::string valor = line.substr(pos_equal + 2);
+      pares_.push_back(std::make_pair(etiqueta, BigInt<Base>(valor)));      
     }
   }
   file.close();

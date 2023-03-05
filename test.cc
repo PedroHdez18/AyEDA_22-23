@@ -32,22 +32,24 @@ int main(int argc, char *argv[]) {
   const std::string last = line.substr(pos_space+1);
   size_t Base = string_to_size_t(last); 
 
-  if (Base == 2) {
-    Board<2> board(file);
-    file2 << board;
-    std::cout << board;
-  } else if (Base == 8) {
-    Board<8> board(file);
-    file2 << board;
-    std::cout << board;
-  } else if (Base == 10) {
-    Board<10> board(file);
-    file2 << board;
-    std::cout << board;
-  } else if (Base == 16) {
-    Board<16> board(file);
-    file2 << board;
-    std::cout << board;
-  }
+  BigInt<10> number_a("40");
+  BigInt<10> number_b("40");
+  // if (Base == 2) {
+  //   Board<2> board(file);
+  //   file2 << board;
+  //   std::cout << board;
+  // } else if (Base == 8) {
+  //   Board<8> board(file);
+  //   file2 << board;
+  //   std::cout << board;
+  // } else if (Base == 10) {
+  //   Board<10> board(file);
+  //   file2 << board;
+  //   std::cout << board;
+  // } else if (Base == 16) {
+  //   Board<16> board(file);
+  //   file2 << board;
+  //   std::cout << board;
+  // }
   return 0;
 }
